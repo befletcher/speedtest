@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/caltemose/speedtest/issues"
   },
-  "homepage": "https://github.com/caltemose/speedtest"
+  "homepage": "https://github.com/caltemose/speedtest",
+  "dependencies": {
+    "moment": "~2.8.4"
+  }
 }
