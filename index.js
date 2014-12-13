@@ -1,8 +1,10 @@
 var speedtest = require('./speedtest');
 
 var options = {
-  testFile: 's3.amazonaws.com/zilla-nodetest/amaranth.png',
-  minutes: 0 // 0 forces one-time run for testing
+  host: 's3.amazonaws.com'
+  , path: '/zilla-nodetest/amaranth.png'
+  // set to 0 or just remove it to run the test only once and stop
+  , minutes: 15
 }
 
 speedtest.run(options);

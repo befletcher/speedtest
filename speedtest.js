@@ -11,25 +11,24 @@ module.exports = {
         var reqOptions = {
             fileId: moment().format('YYYYMMDD-hmmss'),
             req: {
-                host: options.testFile.split('/')[0],
-                path: '/' + options.testFile.split('/').slice(1).join('/')
+                host: options.host,
+                path: options.path
             }
         }
         speedResults = [];
 
-        if (options.minutes <= 0) {
-            // runonce
+        if (options.minutes <= 0 || !options.minutes) {
+            // run once
             this.makeRequest(reqOptions);
 
         } else {
-            // run on interval
+            // run repeatedly
             var me = this;
             var delay = options.minutes * 60 * 1000; //minutes
             task = setInterval(function () {
                 me.makeRequest(reqOptions);
             }, delay);
         }
-        return reqOptions;
     },
 
     makeRequest: function (options) {
@@ -54,7 +53,7 @@ module.exports = {
                 testResults.avg = Math.round(sum/speedResults.length*100)/100;
                 var resultsString = JSON.stringify(testResults) + ",\n";
 
-                fs.appendFile('results-' + options.fileId + '.txt', resultsString, function (err) {
+                fs.appendFile('results/results-' + options.fileId + '.txt', resultsString, function (err) {
                     if (err) throw err;
                     console.log('results written to file:', testResults.speed);
                     console.log('');
