@@ -1,0 +1,41 @@
+'<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" />
+    <meta content="width=device-width" name="viewport" />
+    <title>Speedtest Results</title>
+    <style type="text/css">
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            margin: 1em;
+        }
+    </style>
+</head>
+<body>
+
+
+<div id="chart"></div>
+
+
+<script src="results/results-20141214-111646.js"></script>
+<script>
+    // console.log('Speedtest result count:', speedtest.length);
+    // console.log('final avg:', speedtest[speedtest.length-1].avg);
+    // console.log(speedtest);
+
+    var chart = document.getElementById('chart');
+
+    var i, li;
+    for(i=0; i<speedtest.length-1; i++) {
+        li = document.createElement('li');
+        li.innerHTML = 
+        chart.appendChild(li);
+    }
+
+    
+
+</script>
+
+</body>
+</html>

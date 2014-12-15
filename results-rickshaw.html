@@ -1,0 +1,64 @@
+'<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" />
+    <meta content="width=device-width" name="viewport" />
+    <title>Speedtest Results</title>
+    <style type="text/css">
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            margin: 1em;
+        }
+    </style>
+</head>
+<body>
+
+
+<div id="chart"></div>
+
+
+<script>
+// var getQueryParams = function() {
+//     var params = {}, queries, temp, i, l;
+//     var query = window.location.search.slice(1);
+//     queries = query.split("&");
+//     for ( i = 0, l = queries.length; i < l; i++ ) {
+//         temp = queries[i].split('=');
+//         params[temp[0]] = temp[1];
+//     }
+//     return params;
+// };
+</script>
+
+<script src="vendor/d3.min.js"></script>
+<script src="vendor/d3.layout.min.js"></script>
+<script src="vendor/rickshaw.min.js"></script>
+
+<script src="results/results-20141214-111646.js"></script>
+<script>
+    console.log('Speedtest result count:', speedtest.length);
+    console.log('final avg:', speedtest[speedtest.length-1].avg);
+    console.log(speedtest);
+
+    var i, speeds = [];
+    for(i=0; i<speedtest.length-1; i++) {
+        speeds.push({x:i, y:speedtest[i].duration});
+    }
+
+    var graph = new Rickshaw.Graph( {
+        element: document.querySelector("#chart"), 
+        width: 900, 
+        height: 300, 
+        series: [{
+            color: 'steelblue',
+            data: speeds
+        }]
+    });
+
+    graph.render();
+
+</script>
+
+</body>
+</html>

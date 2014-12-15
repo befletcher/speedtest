@@ -6,6 +6,7 @@ module.exports = {
 
     speedResults: [],
     task: undefined,
+    fileName: '',
 
     run: function (options) {
         var reqOptions = {
@@ -16,6 +17,13 @@ module.exports = {
             }
         }
         speedResults = [];
+
+        
+        reqOptions.fileName = 'results/results-' + reqOptions.fileId + '.js';
+        fs.writeFile(reqOptions.fileName, "var speedtest = [];\n", function (err) {
+            if (err) throw err;
+            console.log('created file:', reqOptions.fileName);
+        });
 
         if (options.minutes <= 0 || !options.minutes) {
             // run once
@@ -51,9 +59,11 @@ module.exports = {
                     return a+b;
                 });
                 testResults.avg = Math.round(sum/speedResults.length*100)/100;
-                var resultsString = JSON.stringify(testResults) + ",\n";
+                var resultsString = JSON.stringify(testResults); // + ",\n";
+                resultsString = 'speedtest.push(' + resultsString + ');';
+                console.log(resultsString);
 
-                fs.appendFile('results/results-' + options.fileId + '.txt', resultsString, function (err) {
+                fs.appendFile(options.fileName, resultsString, function (err) {
                     if (err) throw err;
                     console.log('results written to file:', testResults.speed);
                     console.log('');

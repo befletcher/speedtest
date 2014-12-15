@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" />
+    <meta content="width=device-width" name="viewport" />
+    <title>Speedtest Results</title>
+    <style type="text/css">
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            margin: 1em;
+        }
+        #msg {
+            margin-top: 1em;
+            padding-left: 1em;
+            line-height: 150%;
+        }
+    </style>
+</head>
+<body>
+
+
+<!-- <div id="chart"></div> -->
+<canvas id="chart" width="800" height="300"></canvas>
+
+<div id="msg"></div>
+
+
+<script src="vendor/Chart.min.js"></script>
+<script src="results/results-20141214-111646.js"></script>
+<script>
+    var msgEl = document.getElementById('msg');
+    var avg = speedtest[speedtest.length-1].avg;
+    var msg = 'Average speed (mbits): <strong>' + avg + "</strong><br>";
+    msg += 'Start: <strong>' + speedtest[0].start.replace('T', ' ') + "</strong><br>";
+    msg += 'End: <strong>' + speedtest[speedtest.length-1].start.replace('T', ' ') + "</strong><br>";
+    msgEl.innerHTML = msg;
+
+    // console.log('Speedtest result count:', speedtest.length);
+    // console.log('final avg:', speedtest[speedtest.length-1].avg);
+    // console.log(speedtest);
+
+    var i, speeds = [], labels = [];
+    for(i=0; i<speedtest.length-1; i++) {
+        labels.push(i);
+        speeds.push(speedtest[i].speed);
+    }
+
+    // console.log(speeds);
+
+    var data = {
+        labels: labels,
+        datasets: [
+            {
+                label: "My First dataset",
+                fillColor: "rgba(220,220,220,0.2)",
+                strokeColor: "rgba(220,220,220,1)",
+                pointColor: "rgba(220,220,220,1)",
+                pointStrokeColor: "#fff",
+                pointHighlightFill: "#fff",
+                pointHighlightStroke: "rgba(220,220,220,1)",
+                data: speeds
+            }
+        ]
+    };
+
+    var ctx = document.getElementById("chart").getContext("2d");
+    var myLineChart = new Chart(ctx).Line(data, {responsive: true});
+
+</script>
+
+</body>
+</html>
